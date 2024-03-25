@@ -1,0 +1,6 @@
+{
+  "name": "cas_pratique",
+  "dependencies": {
+    "@dataform/core": "2.8.3"
+  }
+}
