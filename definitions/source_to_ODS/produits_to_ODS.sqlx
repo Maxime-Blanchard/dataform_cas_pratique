@@ -1,0 +1,13 @@
+config {
+    type: "table",
+    schema: "ODS_gestion_magasin",
+    name: "ODS_produits"
+}
+
+  -- Use the ref() function to manage dependencies.
+  -- Learn more about ref() and other built in functions here: https://cloud.google.com/dataform/docs/dataform-core
+SELECT
+  *,
+  CURRENT_TIMESTAMP() AS D_LOAD
+FROM
+  ${ref("produits")}
