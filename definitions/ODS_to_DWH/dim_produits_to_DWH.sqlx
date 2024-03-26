@@ -1,0 +1,17 @@
+config {
+    type: "table",
+    schema: "DWH_gestion_magasin",
+    name: "d_produits"
+}
+
+  -- Use the ref() function to manage dependencies.
+  -- Learn more about ref() and other built in functions here: https://cloud.google.com/dataform/docs/dataform-core
+SELECT
+  IDproduit as CD_PRODUIT,
+  libelle as LL_PRODUIT,
+  marque as LL_MARQUE,
+  categorie as LL_CATEGORIE,
+  classe as LL_CLASSE,
+  CURRENT_TIMESTAMP() AS D_LOAD
+FROM
+  ${ref("ODS_produits")}

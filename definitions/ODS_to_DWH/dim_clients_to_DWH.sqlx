@@ -1,0 +1,22 @@
+config {
+    type: "table",
+    schema: "DWH_gestion_magasin",
+    name: "d_clients"
+}
+
+  -- Use the ref() function to manage dependencies.
+  -- Learn more about ref() and other built in functions here: https://cloud.google.com/dataform/docs/dataform-core
+SELECT
+  IDclient as CD_CLIENT,
+  CONCAT(nom, prenom) as LL_client,
+  CASE sexe
+    WHEN "H" THEN "Homme"
+    WHEN "F" THEN "Femme"
+    ELSE "Autre"
+  END as LL_SEXE,
+  age as V_AGE,
+  carte_fidelite as LL_CARTE_FIDELITE,
+  foyer as LL_FOYER,
+  CURRENT_TIMESTAMP() AS D_LOAD
+FROM
+  ${ref("ODS_clients")}
