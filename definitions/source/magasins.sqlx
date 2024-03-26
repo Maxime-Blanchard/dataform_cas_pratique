@@ -1,0 +1,6 @@
+config {
+    type: "declaration",
+    database: "poc-bigquery-studio",
+    schema: "source_gestion_magasin",
+    name: "magasins",
+}
