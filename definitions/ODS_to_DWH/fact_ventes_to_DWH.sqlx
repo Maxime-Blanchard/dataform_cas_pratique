@@ -1,6 +1,7 @@
 config {
-    type: "table",
+    type: "incremental",
     schema: "DWH_gestion_magasin",
+    uniqueKey: ["CD_MAGASIN", "CD_CLIENT", "D_YYYYMMDD", "CD_PRODUIT"],
     name: "i_ventes"
 }
 
