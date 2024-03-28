@@ -1,0 +1,14 @@
+config {
+    type: "view",
+    schema: "DWH_gestion_magasin",
+    name: "Qte_vendue"
+}
+
+SELECT 
+    IDproduit,
+    IDmagasin,
+    dateTransaction,
+    COUNT(prix_de_vente) as Qte_vendue
+FROM ${ref("ODS_ventes")} ventes LEFT JOIN ${ref("ODS_transactions")} transactions ON ventes.IDtransaction = transactions.IDtransaction
+GROUP BY IDproduit, IDmagasin, dateTransaction
+

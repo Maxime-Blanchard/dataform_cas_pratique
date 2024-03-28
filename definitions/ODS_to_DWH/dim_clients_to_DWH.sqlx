@@ -1,0 +1,30 @@
+config {
+    type: "table",
+    schema: "DWH_gestion_magasin",
+    name: "d_clients"
+}
+
+SELECT
+  IDclient as CD_CLIENT,
+  CONCAT(nom, prenom) as LL_client,
+  CASE sexe
+    WHEN "H" THEN "Homme"
+    WHEN "F" THEN "Femme"
+    ELSE "Erreur"
+  END as LL_SEXE,
+  age as V_AGE,
+  carte_fidelite as LL_CARTE_FIDELITE,
+  foyer as LL_FOYER,
+  CURRENT_TIMESTAMP() AS D_LOAD
+FROM
+  ${ref("ODS_clients")}
+
+
+
+
+
+
+
+
+
+

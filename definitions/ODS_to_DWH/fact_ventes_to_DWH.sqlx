@@ -1,0 +1,17 @@
+config {
+    type: "incremental",
+    schema: "DWH_gestion_magasin",
+    uniqueKey: ["CD_MAGASIN", "CD_CLIENT", "D_YYYYMMDD", "CD_PRODUIT"],
+    name: "i_ventes"
+}
+
+SELECT 
+    transactions.IDmagasin as CD_MAGASIN,
+    transactions.IDclient as CD_CLIENT,
+    transactions.dateTransaction as D_YYYYMMDD,
+    ventes.IDproduit as CD_PRODUIT,
+    SUM(ventes.prix_de_vente) as V_CA,
+    COUNT(ventes.prix_de_vente) as V_QUANTITE,
+    CURRENT_TIMESTAMP() AS D_LOAD
+FROM ${ref("ODS_ventes")} ventes LEFT JOIN ${ref("ODS_transactions")} transactions ON ventes.IDtransaction = transactions.IDtransaction
+GROUP BY CD_MAGASIN, CD_CLIENT, D_YYYYMMDD, CD_PRODUIT

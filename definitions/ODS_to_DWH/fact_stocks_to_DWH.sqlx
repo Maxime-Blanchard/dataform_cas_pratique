@@ -1,0 +1,16 @@
+config {
+    type: "incremental",
+    schema: "DWH_gestion_magasin",
+    uniqueKey: ["CD_PRODUIT", "CD_MAGASIN", "D_YYYYMMDD"],
+    name: "i_stocks"
+}
+
+SELECT 
+    qv.IDproduit as CD_PRODUIT,
+    qv.IDmagasin as CD_MAGASIN,
+    qv.dateTransaction as D_YYYYMMDD,
+    qv.Qte_vendue as V_QUANTITE_VENDUE,
+    ifnull(ql.Qte_livree,0) as V_QUANTITE_LIVREE,
+    CURRENT_TIMESTAMP() AS D_LOAD
+FROM ${ref("Qte_vendue")} qv LEFT JOIN ${ref("Qte_livree")} ql
+ON ql.IDproduit = qv.IDproduit AND ql.IDmagasin = qv.IDmagasin AND ql.dateLivraison = qv.dateTransaction

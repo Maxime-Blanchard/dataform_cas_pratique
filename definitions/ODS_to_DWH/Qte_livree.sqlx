@@ -1,0 +1,13 @@
+config {
+    type: "view",
+    schema: "DWH_gestion_magasin",
+    name: "Qte_livree"
+}
+
+SELECT 
+    livraisons.IDproduit,
+    bons_livraison.IDmagasin,
+    bons_livraison.dateLivraison,
+    IFNULL(SUM(livraisons.quantite), 0) as Qte_livree
+FROM ${ref("ODS_livraisons")} livraisons LEFT JOIN ${ref("ODS_bons_livraison")} bons_livraison ON livraisons.IDBL = bons_livraison.IDBL
+GROUP BY livraisons.IDproduit, bons_livraison.IDmagasin, bons_livraison.dateLivraison
